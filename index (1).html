@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Button Editor</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            transition: background-color 0.5s ease;
+        }
+        .button {
+            padding: 20px 40px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .button:hover {
+            transform: scale(1.1);
+        }
+        .word-display {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 30px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>לחץ על הכפתור לפעולה רנדומלית!</h1>
+    <button class="button" id="randomButton">לחץ כאן!</button>
+    <div id="wordDisplay" class="word-display"></div>
+
+    <audio id="jumpSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+
+    <script>
+        const actions = [
+            "שלום", "הצלחה", "חבר", "תודה", "אהבה", "שלום עולם", "תעוזה", "בוקר טוב", 
+            "לילה טוב", "ברוך הבא", "כיף", "שמחה", "חגיגה", "רגע", "מזל טוב", "חופשה", 
+            "אומץ", "בריאות", "אמונה", "יצירתיות", "מחשבה", "מדע", "אור", "חושך", "רוח", 
+            "מים", "אדמה", "אש", "כח", "מוזיקה", "סרט", "שיר", "ריקוד", "אוכל", "שתייה", 
+            "חברים", "משפחה", "נופש", "ים", "הר", "שמיים", "עולם", "כדור", "שדה", "חורף", 
+            "קיץ", "אביב", "סתיו", "פרחים", "עץ", "ירק", "שמש", "גשם", "שלג", "אבק", 
+            "מרפסת", "דלת", "חלון", "כיסא", "שולחן", "מחשב", "טלפון", "חולצה", "סוודר", 
+            "מכנסיים", "נעליים", "מעיל", "מטריה", "תיק", "שעון", "דינוזואר", "מלחמה", 
+            "שלום עולמי", "חלום", "חיים", "ילד", "ילדה", "אדם", "סיפור", "יצירה", "המצאה",
+            "היסטוריה", "עתיד", "עכשווי", "זיכרון", "כוח רצון", "הצלחה מסחררת", "מרוץ", 
+            "כדורגל", "ברצלונה", "רונאלדו", "מסי", "פנדל", "שוער", "קבוצה", "משחק", "ליגה"
+        ];
+
+        const randomButton = document.getElementById('randomButton');
+        const wordDisplay = document.getElementById('wordDisplay');
+        const jumpSound = document.getElementById('jumpSound');
+
+        let clickCount = 0;
+
+        randomButton.addEventListener('click', () => {
+            clickCount++;
+
+            // שינויים בצבע רקע
+            document.body.style.backgroundColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+
+            // אם מספר הלחיצות הוא כפולה של 3, לא יוצג טקסט
+            if (clickCount % 3 === 0) {
+                wordDisplay.textContent = ''; // לא להציג מילה
+                jumpSound.play(); // להשמיע סאונד
+            } else {
+                const randomAction = actions[Math.floor(Math.random() * actions.length)];
+                wordDisplay.textContent = randomAction;
+            }
+        });
+    </script>
+
+</body>
+</html>
